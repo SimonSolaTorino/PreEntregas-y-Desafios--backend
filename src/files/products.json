@@ -1,0 +1,102 @@
+[
+  {
+    "title": "Laptop",
+    "description": "Powerful laptop for work and entertainment",
+    "category": "Electronics",
+    "stock": 50,
+    "price": 1200,
+    "code": "LPT001",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Smartphone",
+    "description": "High-performance smartphone with advanced features",
+    "category": "Electronics",
+    "stock": 30,
+    "price": 800,
+    "code": "SPH002",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Headphones",
+    "description": "Wireless headphones with noise cancellation",
+    "category": "Electronics",
+    "stock": 20,
+    "price": 150,
+    "code": "HDN003",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Coffee Maker",
+    "description": "Automatic coffee maker for your daily brew",
+    "category": "Appliances",
+    "stock": 15,
+    "price": 80,
+    "code": "CFM004",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Backpack",
+    "description": "Durable backpack for travel and outdoor activities",
+    "category": "Fashion",
+    "stock": 25,
+    "price": 50,
+    "code": "BPK005",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Desk Chair",
+    "description": "Comfortable ergonomic desk chair for long hours of work",
+    "category": "Furniture",
+    "stock": 10,
+    "price": 200,
+    "code": "CHR006",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Gaming Mouse",
+    "description": "High-performance gaming mouse with customizable features",
+    "category": "Gaming",
+    "stock": 40,
+    "price": 60,
+    "code": "GMS007",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Fitness Tracker",
+    "description": "Track your fitness goals with this advanced fitness tracker",
+    "category": "Fitness",
+    "stock": 18,
+    "price": 90,
+    "code": "FTC008",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Sunglasses",
+    "description": "Stylish sunglasses for a trendy look",
+    "category": "Fashion",
+    "stock": 22,
+    "price": 30,
+    "code": "SUN009",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  },
+  {
+    "title": "Bluetooth Speaker",
+    "description": "Portable Bluetooth speaker for music on the go",
+    "category": "Electronics",
+    "stock": 12,
+    "price": 70,
+    "code": "BTS010",
+    "thumbnail": ["https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"],
+    "status": true
+  }
+]

@@ -1,0 +1,98 @@
+<div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .product-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100px;
+            margin-right: 20px;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+        .total-docs {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination {
+            margin-top: 10px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #3498db;
+            border: 1px solid #3498db;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .pagination a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .pagination span {
+            margin: 0 5px;
+        }
+    </style>
+
+    <h1>mi preentrega 1</h1>
+
+    <div>
+        {{#each products}}
+        <div class="product-container">
+            <img class="product-image" src="{{this.thumbnail.[0]}}" alt="Product Image">
+            <div class="product-details">
+                <p>producto: {{this.title}}</p>
+                <p>descripcion: {{this.description}}</p>
+                <p>categoria: {{this.category}}</p>
+                <p>precio: {{this.price}}</p>
+                <p>stock: {{this.stock}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<div class="total-docs">
+        Productos totales: {{totalDocs}}
+    <div class="pagination">
+        {{#if hasPrevPage }}
+            <a href="/products/?page={{prevPage}}&limit={{limit}}">anterior</a>
+        {{else}}
+            <span>anterior</span>
+        {{/if}}
+        {{page}}/{{totalPages}}
+        {{#if hasNextPage}}
+            <a href="/products/?page={{nextPage}}&limit={{limit}}">siguiente</a>
+        {{else}}
+            <span>siguiente</span>
+        {{/if}}
+    </div>
+</div>

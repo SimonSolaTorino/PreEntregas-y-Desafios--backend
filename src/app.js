@@ -8,6 +8,7 @@ import routerCart from "./routes/carts.router.js";
 import routerViews from "./routes/views.router.js";
 import { db_conection } from "./database/config.js";
 import productModel from "./models/product.model.js";
+import messageModel from "./models/message.model.js";
 //INSTANCIAMOS APP
 const app = express()
 const PORT = 8080
@@ -51,4 +52,18 @@ io.on('connection', async (socket)=>{
             console.error("Error al agregar producto con socket.io", error)
         }
     })
+
+    //chat
+    const mensajes = await messageModel.find()
+    socket.emit('message', mensajes)
+
+    socket.on('message', async (data)=>{
+        const new_mensaje = await messageModel.create({...data})
+        if(new_mensaje){
+            const messages = await messageModel.find()
+            io.emit('messagesLogs', messages)
+        } 
+    })
+
+    socket.broadcast.emit('nuevo_user')
 })

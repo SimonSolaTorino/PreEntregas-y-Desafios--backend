@@ -1,0 +1,71 @@
+<!-- En tu archivo home.handlebars -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #05193e, #00509e);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    header, nav {
+        text-align: center;
+        padding: 20px;
+        background-color: #3e5f8a; /* Nuevo color de fondo */
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav li {
+        margin: 0 15px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #ffcc00;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        background-color: #2a4057;
+    }
+
+    .main-content h1 {
+        color: #fff;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>PROYECTO</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/products">PRODUCTOS</a></li>
+            <li><a href="/api/carts">CARRITO</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content"> 
+        <!-- Contenido de la página -->
+        {{{body}}}
+    </div>
+</body>

@@ -1,0 +1,176 @@
+<div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .product-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100px;
+            margin-right: 20px;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+        .total-docs {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination {
+            margin-top: 10px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #3498db;
+            border: 1px solid #3498db;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .pagination a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .pagination span {
+            margin: 0 5px;
+        }
+        .ordenar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-bottom: 15px;
+    }
+
+    .titulo_ordenar {
+        margin-right: 12px; 
+    }
+
+    .botones_ordenar {
+        display: flex;
+        align-items: center;
+    }
+
+    .botones_ordenar a {
+        display: inline-block;
+        padding: 8px 12px; 
+        margin-right: 8px; 
+        text-decoration: none;
+        background-color: #3498db;
+        color: #fff;
+        border: 1px solid #3498db;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .botones_ordenar a:hover {
+        background-color: #2980b9;
+    }
+    .boton_agregar_carrito {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        background-color: #3498db;
+        color: #fff;
+        border: 1px solid #3498db;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .boton_agregar_carrito:hover {
+        background-color: #2980b9;
+    }
+    </style>
+
+    <h1>mi preentrega 1</h1>
+    <div class="ordenar">
+        <h3 class="titulo_ordenar">ordenar</h3>
+        <div class="botones_ordenar">
+            <a href="/products/?page={{page}}&limit={{limit}}&category={{category}}&sort=asc">↑</a>
+            <a href="/products/?page={{page}}&limit={{limit}}&category={{category}}&sort=desc">↓</a>
+        </div>
+    </div>
+    <div>
+        {{#each products}}
+        <div class="product-container">
+            <img class="product-image" src="{{this.thumbnail.[0]}}" alt="Product Image">
+            <div class="product-details">
+                <p>producto: {{this.title}}</p>
+                <p>descripcion: {{this.description}}</p>
+                <p>categoria: {{this.category}}</p>
+                <p>precio: {{this.price}}</p>
+                <p>stock: {{this.stock}}</p>
+            </div>
+            <div>
+                <button class="boton_agregar_carrito" onclick="agregarAlCarrito('{{this._id}}')">agregar al carrito</button>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<div class="total-docs">
+        Productos totales: {{totalDocs}}
+    <div class="pagination">
+        {{#if hasPrevPage }}
+            <a href="/products/?page={{prevPage}}&limit={{limit}}&category={{category}}&sort=">anterior</a>
+        {{else}}
+            <span>anterior</span>
+        {{/if}}
+        {{page}}/{{totalPages}}
+        {{#if hasNextPage}}
+            <a href="/products/?page={{nextPage}}&limit={{limit}}&category={{category}}&sort=">siguiente</a>
+        {{else}}
+            <span>siguiente</span>
+        {{/if}}
+    </div>
+</div>
+<script>
+    async function agregarAlCarrito(productoId) {
+        try {
+            const response = await fetch(`/api/carts/mi_carrito_prueba_1/products/${productoId}`, {
+                method: 'PUT'
+            })
+
+            if (!response.ok) {
+                throw new Error('Error al agregar al carrito')
+            }
+
+            const resultado = await response.json()
+            console.log('Producto agregado al carrito:', resultado)
+        } catch (error) {
+            console.error('Error al agregar al carrito:', error)
+        }
+    }
+</script>

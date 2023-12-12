@@ -1,0 +1,54 @@
+<div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2a4057;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+
+        .contenedor_prod {
+            display: flex;
+            flex-direction: column;
+            background-color: #3e5f8a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .contenedor_info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content:flex-start;
+        }
+
+        img {
+            width: 200px;
+            margin-right: 20px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+    </style>
+
+    <div class="contenedor_prod">
+        <h1>producto de id: {{producto._id}}</h1>
+        <div class="contenedor_info">
+            <img src="{{producto.thumbnail.[0]}}" alt="img_pord_por_id">
+            <div>
+                <p>producto: {{producto.title}}</p>
+                <p>categoria: {{producto.category}}</p>
+                <p>precio: {{producto.price}}</p>
+                <p>stock: {{producto.stock}}</p>
+                <p>descripcion: {{producto.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

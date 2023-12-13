@@ -3,17 +3,40 @@ import productModel from "../models/product.model.js";
 
 export const traer_productos = async (req, resp)=>{
     try{
-        const {limit} = req.query
-        const limite = limit && !isNaN(Number(limit)) ? Number(limit) : undefined
+        //const {limit} = req.query
+        //const limite = limit && !isNaN(Number(limit)) ? Number(limit) : undefined
         //const productos = limite ? await productModel.find().limit(limite) : await productModel.find() para insomnia
-        const productos = limite ? await productModel.find().lean().limit(limite) : await productModel.find().lean()
+        //const productos = limite ? await productModel.find().lean().limit(limite) : await productModel.find().lean()
+        const limit = parseInt(req.query?.limit ?? 4)
+        const page = parseInt(req.query?.page ?? 1)
+        const ordenar_por = req.query?.sort === '↑' ? 'asc' : 'desc'
+        const filtro_categoria = req.query?.category ?? ''
+        const filtro_stock = req.query?.stock
+        const filtros = {}
+        
+        if (filtro_categoria !== '') {
+            filtros.category = req.query.category
+        }
+
+        if (filtro_stock) {
+            filtros.stock = { $gt: 0 } //que sea mayor a 0
+        }
+        
+        const productos = await productModel.paginate(filtros, {
+            page,
+            limit,
+            sort: { price: ordenar_por },
+            lean: true
+        })
 
         if(!productos){
             resp.status(404).json({mensaje: "error al traer los productos de la base de datos."})
         }
         else{
+            productos.products = productos.docs
+            delete productos.docs
             //return resp.json({ productos }) para insomnia
-            return resp.render('products',  { productos } )
+            return resp.render('products',  { productos: productos.products } ) /*para que el handlebars recibe el array y no el objeto.*/
         }
 
     }catch(error){

@@ -9,7 +9,9 @@ export const traer_carrito_por_id = async (req, resp)=>{
             return resp.status(404).json({mensaje: `No se encontro ningun carrito con el id: ${cid}`})
         }
         else{
-            return resp.json({carrito})
+            //return resp.json({carrito}) para insomnia
+            const carritoSimple = carrito.toObject()
+            return resp.render('cart',  { carrito: carritoSimple })
         }
     }
     catch(error){

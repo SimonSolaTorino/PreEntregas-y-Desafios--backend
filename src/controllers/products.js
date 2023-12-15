@@ -7,36 +7,49 @@ export const traer_productos = async (req, resp)=>{
         //const limite = limit && !isNaN(Number(limit)) ? Number(limit) : undefined
         //const productos = limite ? await productModel.find().limit(limite) : await productModel.find() para insomnia
         //const productos = limite ? await productModel.find().lean().limit(limite) : await productModel.find().lean()
-        const limit = parseInt(req.query?.limit ?? 4)
-        const page = parseInt(req.query?.page ?? 1)
-        const ordenar_por = req.query?.sort === '↑' ? 'asc' : 'desc'
         const filtro_categoria = req.query?.category ?? ''
         const filtro_stock = req.query?.stock
-        const filtros = {}
-        
-        if (filtro_categoria !== '') {
-            filtros.category = req.query.category
-        }
+        const page = parseInt(req.query?.page ?? 1)
+        const limit = parseInt(req.query?.limit ?? 10)
+        const ordenar_por = req.query?.sort === '↑' ? 1 : -1
+        let propiedad_filtro = req.query?.query
+        let filtros = {}
 
+        if (propiedad_filtro) {
+            try {
+                propiedad_filtro = JSON.parse(decodeURIComponent(propiedad_filtro))
+                filtros = { ...filtros, ...propiedad_filtro }
+
+            } catch (error) {
+                console.error("Error al parsear la query:", error);
+            }
+        }
+        
         if (filtro_stock) {
             filtros.stock = { $gt: 0 } //que sea mayor a 0
+        
         }
+        if (filtro_categoria !== '') {
+            filtros.category = filtro_categoria
+        }
+        
         
         const productos = await productModel.paginate(filtros, {
             page,
             limit,
-            sort: { price: ordenar_por },
-            lean: true
+            sort: {price : ordenar_por},
+            lean: true,
+            leanWithId: false
         })
 
-        if(!productos){
+        if(!productos || productos.length === 0){
             resp.status(404).json({mensaje: "error al traer los productos de la base de datos."})
         }
         else{
             productos.products = productos.docs
             delete productos.docs
             //return resp.json({ productos }) para insomnia
-            return resp.render('products',  { productos: productos.products } ) /*para que el handlebars recibe el array y no el objeto.*/
+            return resp.render('products',  { productos: productos.products} ) /*para que el handlebars recibe el array y no el objeto.*/
         }
 
     }catch(error){

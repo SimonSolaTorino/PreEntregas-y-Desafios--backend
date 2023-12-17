@@ -10,6 +10,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 20px;
+        margin-top: 10px;
         border: 1px solid #2a4057;
         padding: 10px;
         background-color: #3e5f8a;
@@ -82,6 +83,28 @@
     input[type="submit"]:hover {
         background-color: #45a049;
     }
+    .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+    .pagination-link {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #4caf50;
+        transition: background-color 0.3s;
+    }
+
+    .pagination-link:hover {
+        background-color: #45a049;
+    }
+
+    .pagination-info {
+        color: white;
+    }
 </style>
 
 <div>
@@ -94,6 +117,9 @@
 </div>
 
 <div>
+    <div class="product-container">
+        <span class="pagination-info">Total de productos: {{pagination.totalItems}}</span>
+    </div>
     {{#each productos}}
         <div class="product-container">
             <img class="product-image" src="{{this.thumbnail.[0]}}" alt="Product Image">
@@ -105,9 +131,30 @@
                 <p>stock: {{this.stock}}</p>
             </div>
             <div>
-                <button class="boton_agregar_carrito">agregar al carrito</button>
+                <button id="add_cart" class="boton_agregar_carrito" onclick="addToCart('{{this._id}}')">agregar al carrito</button>
             </div>
         </div>
     {{/each}}
 </div>
+<div class="pagination-container">
+    {{#if pagination.hasPrevPage}}
+        <a class="pagination-link" href="?page={{pagination.prevPage}}&limit={{pagination.limit}}">Anterior</a>
+    {{/if}}
+    <span class="pagination-info">Página {{pagination.currentPage}} de {{pagination.totalPages}}</span>
+    {{#if pagination.hasNextPage}}
+        <a class="pagination-link" href="?page={{pagination.nextPage}}&limit={{pagination.limit}}">Siguiente</a>
+    {{/if}}
 </div>
+<script>
+    function addToCart(id_prod) {
+        const carrito_hardcodeado = '657634d0a3a91b2c0d1d7ef9'
+        fetch(`/api/carts/${carrito_hardcodeado}/product/${id_prod}`,
+        {
+            method: 'POST', 
+            headers:{'Content-Type':'application/json'}
+        })
+        .then(resp=>resp.json())
+        .then(data=>console.log(data))
+        .catch(error=>console.log("error en onclick function addToCart:", error))
+    }
+</script>

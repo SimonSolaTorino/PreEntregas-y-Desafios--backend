@@ -17,7 +17,7 @@ const cartSchema = new mongoose.Schema({
 })
 
 cartSchema.plugin(mongoosePaginate)
-cartSchema.pre('find', function (next) {
+cartSchema.pre('findOne', function (next) {
     this.populate('products.product')
     next()
 })

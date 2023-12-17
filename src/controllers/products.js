@@ -10,7 +10,7 @@ export const traer_productos = async (req, resp)=>{
         const filtro_categoria = req.query?.category ?? ''
         const filtro_stock = req.query?.stock
         const page = parseInt(req.query?.page ?? 1)
-        const limit = parseInt(req.query?.limit ?? 10)
+        const limit = parseInt(req.query?.limit ?? 15)
         const ordenar_por = req.query?.sort === '↑' ? 1 : -1
         let propiedad_filtro = req.query?.query
         let filtros = {}
@@ -45,11 +45,24 @@ export const traer_productos = async (req, resp)=>{
         if(!productos || productos.length === 0){
             resp.status(404).json({mensaje: "error al traer los productos de la base de datos."})
         }
-        else{
+        else{/*
             productos.products = productos.docs
             delete productos.docs
             //return resp.json({ productos }) para insomnia
             return resp.render('products',  { productos: productos.products} ) /*para que el handlebars recibe el array y no el objeto.*/
+            return resp.render('products', {
+                productos: productos.docs,
+                pagination: {
+                    currentPage: productos.page,
+                    totalPages: productos.totalPages,
+                    hasNextPage: productos.hasNextPage,
+                    hasPrevPage: productos.hasPrevPage,
+                    nextPage: productos.nextPage,
+                    prevPage: productos.prevPage,
+                    totalItems: productos.totalDocs,
+                    limit: productos.limit
+                },
+            })
         }
 
     }catch(error){

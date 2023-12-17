@@ -44,7 +44,10 @@
         <h2>Productos del carrito:</h2>
         {{#each carrito.products}}
             <div>
-                Producto: {{ this.product._id.$oid}} <!-- no puedo poner el id del producto!!!!!! -->
+                Producto: {{ this.product.title}} <!-- no puedo poner el id del producto!!!!!! -->
+            </div>
+            <div>
+                Precio: {{ this.product.price}} <!-- no puedo poner el id del producto!!!!!! -->
             </div>
             <div>
                 Cantidad: {{ this.quantity }}

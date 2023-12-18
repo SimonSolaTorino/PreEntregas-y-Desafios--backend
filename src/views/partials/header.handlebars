@@ -34,6 +34,15 @@
     
 
     <nav>
+        <p>Bienvenido {{user}}!</p>
+        <ul>
+            <li><a href="/products">PRODUCTOS</a></li>
+            <li><a href="/api/carts">CARRITO</a></li>
+            <li><a href="now/logout">CERRAR SESION</a></li>
+            <li><a href="now/login">Iniciar Sesion</a></li>
+            <li><a href="now/register">Registrarse</a></li>
+        </ul>
+        <!---
         {{#if user}}
         <p>Bienvenido {{user}}!</p>
         <ul>
@@ -46,6 +55,6 @@
             <li><a href="now/login">Iniciar Sesion</a></li>
             <li><a href="now/register">Registrarse</a></li>
         </ul>
-        {{/if}}
+        {{/if}}-->
     </nav>
 </header>

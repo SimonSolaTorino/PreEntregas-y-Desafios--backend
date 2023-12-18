@@ -1,4 +1,5 @@
 import usersModel from "../models/users.model.js";
+import { contraseña_valida, crear_hash } from "../utils/bcrypt.js";
 
 export const mostrar_login = async (req, resp)=>{
     return resp.render('login')
@@ -16,6 +17,7 @@ export const traer_registro = async (req, resp)=>{
             return resp.redirect('register')
         }
         else{
+            const password_hasheada = crear_hash(password)
             let usuario = await usersModel.findOne({email})
             
             if(!usuario){
@@ -25,7 +27,7 @@ export const traer_registro = async (req, resp)=>{
                     name: name,
                     lastname: lastname,
                     email: email,
-                    password: password
+                    password: password_hasheada
                 })
 
                 usuario = usuario_nuevo
@@ -52,13 +54,16 @@ export const traer_login = async (req, resp)=>{
         const {password, email} = req.body
 
         const usuario = await usersModel.findOne({email})
+        const contra_usuario = contraseña_valida(password, usuario.password)
 
-        if(usuario && usuario.password === password){
-            const fullname_usuario = `${usuario.name} ${usuario.lastname}`
-            req.session.usuario = fullname_usuario
-            req.session.rol = usuario.rol
-            return resp.redirect('/')
-
+        if(usuario){
+            if(contra_usuario == true){
+                //console.log('login exitoso.')
+                const fullname_usuario = `${usuario.name} ${usuario.lastname}`
+                req.session.usuario = fullname_usuario
+                req.session.rol = usuario.rol
+                return resp.redirect('/')
+            }
         }
         else{
             console.log(password, email)

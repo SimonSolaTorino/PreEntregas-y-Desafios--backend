@@ -1,10 +1,11 @@
 //lLIBRERIAS
 import express from "express";
 import handlebars from "express-handlebars";
-import __direname from "./utils.js";
+import __dirname from "./utils/utils.js";
 import { Server } from "socket.io";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import passport from "passport";
 import routerProducts from "./routes/products.router.js";
 import routerCart from "./routes/carts.router.js";
 import routerViews from "./routes/views.router.js";
@@ -12,6 +13,7 @@ import routerLogin from "./routes/login.router.js";
 import { db_conection } from "./database/config.js";
 import productModel from "./models/product.model.js";
 import messageModel from "./models/message.model.js";
+import { iniciar_passport } from "./config/passport.js";
 
 //INSTANCIAMOS APP
 const app = express()
@@ -31,6 +33,10 @@ app.use(session({
     saveUninitialized: true
 }))
 
+//PASSPORT
+iniciar_passport()
+app.use(passport.initialize())
+app.use(passport.session())
 //HANDLEBARS
 app.engine('handlebars', handlebars.engine())
 app.set('views', __direname + '/views')

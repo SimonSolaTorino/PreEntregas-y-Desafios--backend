@@ -1,10 +1,6 @@
 
 export const main_view =  async (req, resp)=>{
     const user = req.session.user
-    console.log(req.session)
-
-    //console.log(`respuesta:\n${productos}`)
-    console.log(user)
     return resp.render('home', {user})
 }
 export const socket_realtime = async (req, resp)=>{

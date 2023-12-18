@@ -3,18 +3,33 @@ import express from "express";
 import handlebars from "express-handlebars";
 import __direname from "./utils.js";
 import { Server } from "socket.io";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import routerProducts from "./routes/products.router.js";
 import routerCart from "./routes/carts.router.js";
 import routerViews from "./routes/views.router.js";
+import routerLogin from "./routes/login.router.js";
 import { db_conection } from "./database/config.js";
 import productModel from "./models/product.model.js";
 import messageModel from "./models/message.model.js";
+
 //INSTANCIAMOS APP
 const app = express()
 const PORT = 8080
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__direname + '/public'))
+
+//SESSION:
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: `mongodb+srv://simonsolat:lDTOOk46b0F6VymI@cluster0.cjjajx4.mongodb.net/pre-entrega2`,
+        ttl:3600
+    }),
+    secret: 'PREENTRE3SECRET',
+    resave: false,
+    saveUninitialized: true
+}))
 
 //HANDLEBARS
 app.engine('handlebars', handlebars.engine())
@@ -23,6 +38,7 @@ app.set('view engine', 'handlebars')
 
 //RUTAS:
 app.get('/',routerViews)
+app.use('/now', routerLogin)
 app.use('/api/carts', routerCart)
 app.use('/products', routerProducts)
 

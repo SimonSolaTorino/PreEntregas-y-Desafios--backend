@@ -1,4 +1,3 @@
-<!-- En tu archivo home.handlebars -->
 <style>
     body {
         font-family: 'Arial', sans-serif;
@@ -11,34 +10,10 @@
         min-height: 100vh;
     }
 
-    header, nav {
-        text-align: center;
-        padding: 20px;
-        background-color: #3e5f8a; /* Nuevo color de fondo */
-    }
-
-    nav ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-    }
-
-    nav li {
-        margin: 0 15px;
-    }
-
-    nav a {
-        text-decoration: none;
+    p {
         color: #fff;
         font-weight: bold;
-        font-size: 16px;
-        transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-        color: #ffcc00;
+        font-size: 30px;
     }
 
     .main-content {
@@ -53,20 +28,10 @@
 </style>
 
 <body>
-    <header>
-        <h1>PROYECTO</h1>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="/products">PRODUCTOS</a></li>
-            <li><a href="/api/carts">CARRITO</a></li>
-        </ul>
-    </nav>
-
+    {{> header}}
     <div class="main-content"> 
-        <!-- Contenido de la página -->
-        {{{body}}}
+        
+        <h1>mi proyecto de coderhouse</h1>
     </div>
 </body>
 

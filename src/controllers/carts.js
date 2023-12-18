@@ -114,6 +114,7 @@ export const actualizar_cantidad_producto_carrito = async (req, resp)=>{
 }
 
 export const vaciar_carrito = async (req, resp)=>{
+    
     try{
         const {cid} = req.params
         

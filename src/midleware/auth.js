@@ -1,5 +1,5 @@
 export const auth = (req, resp, next)=>{
-    if(req.session?.user){
+    if(req.session?.userio){
         return next()
     }
     else{
@@ -7,6 +7,7 @@ export const auth = (req, resp, next)=>{
     }
 }
 export const admin = (req, resp, next)=>{
+    console.log(req.session.rol)
     if(req.session?.rol === 'admin'){
         return next()
     }

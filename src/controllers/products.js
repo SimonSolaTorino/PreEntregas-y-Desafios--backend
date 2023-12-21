@@ -2,6 +2,7 @@ import productModel from "../models/product.model.js";
 
 
 export const traer_productos = async (req, resp)=>{
+    const user = req.session.user
     try{
         //const {limit} = req.query
         //const limite = limit && !isNaN(Number(limit)) ? Number(limit) : undefined
@@ -57,7 +58,7 @@ export const traer_productos = async (req, resp)=>{
                     prevPage: productos.prevPage,
                     totalItems: productos.totalDocs,
                     limit: productos.limit
-                },
+                }, user
             })
         }
 
@@ -69,6 +70,7 @@ export const traer_productos = async (req, resp)=>{
 
 export const traer_producto_por_id = async (req, resp)=>{
     try{
+        const user = req.session.usuario
         const { pid } = req.params
         //const producto = await productModel.findById(pid) para insomnia
         const producto = await productModel.findById(pid).lean()
@@ -78,7 +80,7 @@ export const traer_producto_por_id = async (req, resp)=>{
         }
         else{
             //return resp.json({ producto }) para insomnia
-            return resp.render('productbyid', {producto})
+            return resp.render('productbyid', {producto, user})
         }
 
     }catch(error){
@@ -145,5 +147,6 @@ export const actualizar_producto = async (req, resp)=>{
     }
 }
 export const renderizar_agregar_producto = (req, resp)=>{
-    resp.render('addproduct')
+    const user = req.session.user
+    resp.render('addproduct', {user})
 }

@@ -1,11 +1,12 @@
 //lLIBRERIAS
 import express from "express";
 import handlebars from "express-handlebars";
-import __dirname from "./utils/utils.js";
 import { Server } from "socket.io";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
+//UTILIDADES
+import __dirname from "./utils.js";
 import routerProducts from "./routes/products.router.js";
 import routerCart from "./routes/carts.router.js";
 import routerViews from "./routes/views.router.js";
@@ -20,16 +21,16 @@ const app = express()
 const PORT = 8080
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(__direname + '/public'))
+app.use(express.static(__dirname + '/public'))
 
 //SESSION:
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: `mongodb+srv://simonsolat:lDTOOk46b0F6VymI@cluster0.cjjajx4.mongodb.net/pre-entrega2`,
+        mongoUrl: 'mongodb+srv://simonsolat:lDTOOk46b0F6VymI@cluster0.cjjajx4.mongodb.net/pre-entrega2',
         ttl:3600
     }),
     secret: 'PREENTRE3SECRET',
-    resave: false,
+    resave: true,
     saveUninitialized: true
 }))
 
@@ -37,9 +38,10 @@ app.use(session({
 iniciar_passport()
 app.use(passport.initialize())
 app.use(passport.session())
+
 //HANDLEBARS
 app.engine('handlebars', handlebars.engine())
-app.set('views', __direname + '/views')
+app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 
 //RUTAS:

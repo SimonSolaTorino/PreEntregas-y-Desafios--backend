@@ -52,6 +52,7 @@
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s;
+        margin-bottom: 7px;
     }
 
     button:hover {
@@ -71,6 +72,20 @@
     a:hover {
         text-decoration: underline;
     }
+    .div-imagen-links {
+            background-color: #30363d;
+            border: 1px solid #2a4057;
+            padding: 2px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80px;
+            text-align: center;
+            position: relative;
+            margin: auto;
+    }
+    img {
+        max-width: 28%;
+    }
 </style>
 
 <div>
@@ -80,5 +95,11 @@
         <input type="password" placeholder="Contraseña" id="password" name="password" required>
         <button type="submit">Acceder</button>
     </form>
+    <div class="div-imagen-links">
+        <p>Login with github</p>
+        <a href="github"> 
+        <img src="https://github.com/fluidicon.png" alt="GitHub Logo">
+        </a>
+    </div>
     <p>¿Todavía no te registraste? <a href="register">Regístrate aquí</a></p>
 </div>

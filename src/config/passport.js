@@ -1,12 +1,13 @@
 import passport from "passport";
 import local from "passport-local";
+import GithubStrategy from "passport-github2";
 import usersModel from "../models/users.model.js"
 import { contraseña_valida, crear_hash } from "../utils/bcrypt.js";
 
-const localStrategy = local.Strategy
+const LocalStrategy = local.Strategy
 
 export const iniciar_passport = ()=>{
-    passport.use('register', new localStrategy(
+    passport.use('register', new LocalStrategy(
         {passReqToCallback: true, usernameField: 'email'}, 
         async (req, username, password, done)=>{
             try{
@@ -17,7 +18,7 @@ export const iniciar_passport = ()=>{
                     return done(null, false)
                 }
                 else{
-                    let usuario = await  usersModel.findOne({username})
+                    let usuario = await  usersModel.findOne({email: username})
                     if(usuario){
                         console.log("el usuario ya existe.")
                         return done(null, false)
@@ -45,11 +46,11 @@ export const iniciar_passport = ()=>{
             }
 
         }))
-    passport.use('login', new localStrategy(
+    passport.use('login', new LocalStrategy(
         {usernameField: 'email'}, 
         async (username, password, done)=>{
             try{
-                const usuario = await usersModel.findOne({username})
+                const usuario = await usersModel.findOne({email: username})
 
                 if(!usuario){
                     console.log("no existe el usuario")
@@ -57,6 +58,7 @@ export const iniciar_passport = ()=>{
                 }else{
                     if(contraseña_valida(password, usuario.password)){
                         console.log("login correcto")
+                        console.log("usuario en config", usuario)
                         return done(null, usuario)
 
                     }else{
@@ -83,6 +85,38 @@ export const iniciar_passport = ()=>{
             return done(null, usuario)
         }
     })
+
+    passport.use('github', new GithubStrategy(
+        {
+            clientID:'Iv1.f46406374adc4c76',
+            clientSecret: 'b76bfb48997e7d28491d7f0944efc9c606d8052a',
+            callbackURL:'http://192.168.0.6:8080/now/githubcallback'
+        },
+        async (accessToken, refreshToken, profile, done)=>{
+            try{
+                const email = profile._json.email
+                let user = await  usersModel.findOne(email)
+
+                if(user){
+                    return done(null, user)
+                }else{
+                    const newUser = {
+                        name: profile._json.name,
+                        email: email,
+                        password:  '.$',
+                        social: true
+                    }
+                    user = await usersModel.create(newUser)
+
+                    return done(null, user)
+                }
+
+            }catch(error){
+                done(error)
+            }
+
+        })
+        )
 
 }
 

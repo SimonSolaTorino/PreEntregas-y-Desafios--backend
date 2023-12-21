@@ -1,10 +1,10 @@
 import bycrypt from "bcrypt";
 
 export const crear_hash = (contraseña)=>{
-    const saltos = bycrypt.genSaltSync(10)
+    const saltos = bycrypt.genSaltSync(5)
     const contraseña_hasheada = bycrypt.hashSync(contraseña, saltos)
 
-    console.log(contraseña_hasheada, contraseña)
+    //console.log(contraseña_hasheada, contraseña)
 
     return contraseña_hasheada
 }

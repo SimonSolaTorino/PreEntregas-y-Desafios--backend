@@ -1,6 +1,7 @@
 import cartModel from "../models/cart.model.js";
 
 export const traer_carrito_por_id = async (req, resp)=>{
+    const user = req.session.user
     try{
         const { cid } = req.params
         const carrito = await cartModel.findById(cid).populate('products.product').lean()
@@ -10,7 +11,7 @@ export const traer_carrito_por_id = async (req, resp)=>{
         }
         else{
             //return resp.json({carrito}) para insomnia
-            return resp.render('cart', {carrito})
+            return resp.render('cart', {carrito, user})
         }
     }
     catch(error){
